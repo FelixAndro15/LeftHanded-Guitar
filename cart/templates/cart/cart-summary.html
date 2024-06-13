@@ -1,0 +1,306 @@
+{% include "store/base.html" %}
+
+
+{% load static %}
+
+{% load mathfilters %}
+
+{% block content %}
+
+<style>
+  body {
+      background-color: #f8f9fa; /* Hafif gri arka plan */
+  }
+  .container {
+      background-color: #e5dcdc; /* Beyaz arka plan */
+      border-radius: 40px; /* Köşeleri yuvarlatır */
+      box-shadow: 1px 4px 8px rgb(9, 5, 26); /* Hafif gölge efekti */
+      padding: 30px; /* İç boşluk */
+      margin-top: 10px; /* Üst boşluk */
+  }
+  .product-item {
+      border: 1px solid #f00505; /* Ürün çerçevesi */
+      border-radius: 50px; /* Köşeleri yuvarlatır */
+      padding: 10px; /* İç boşluk */
+      background-color: #ffffff; /* Beyaz arka plan */
+      margin-bottom: 10px; /* Alt boşluk */
+  }
+  .product-item img {
+      border-radius: 0px; /* Resim köşelerini yuvarlatır */
+      width: 200%; /* Genişliği kapsayıcı div'e göre ayarlar */
+      height: 100%; /* Yüksekliği kapsayıcı div'e göre ayarlar */
+      object-fit: cover; /* Resmi kutucuğa sığdırır ve taşan kısımları keser */
+  }
+  .text-info {
+      color: #d20909; /* Bilgi metni rengi */
+      font-weight: bold; /* Kalın yazı */
+  }
+  .border {
+      border: 1px solid #dee2e6; /* İç çerçeveler */
+      border-radius: 5px; /* Köşeleri yuvarlatır */
+      margin-bottom: 0px; /* Alt boşluk */
+  }
+  .border-bottom {
+      border-bottom: 1px solid #da0c0c; /* Alt çerçeve */
+  }
+  .h6 {
+      font-size: 1.6rem; /* Başlık boyutu */
+      color: #08112c; /* Başlık rengi */
+      text-shadow: 1px 4px 8px rgb(169, 166, 183);
+  }
+  .btn-primary {
+      background-color: #ca190d; /* Mavi arka plan */
+      border: inset double; /* Kenarlık yok */
+      padding: 10px 20px; /* İç boşluk */
+      font-size: 1rem; /* Buton yazı boyutu */
+      border-radius: 30px; /* Köşeleri yuvarlatır */
+      box-shadow: 1px 4px 8px rgb(169, 166, 183);
+  }
+  .btn-primary:hover {
+      background-color: #0056b3; /* Hover durumunda daha koyu mavi */
+      
+      text-decoration: underline; /* Alt çizgi yok */
+      box-shadow: 1px 4px 8px rgb(12, 13, 68);
+  }
+  .btn-danger {
+      background-color: #dc3545; /* Kırmızı arka plan */
+      border: inset double; /* Kenarlık yok */
+      padding: 10px 20px; /* İç boşluk */
+      font-size: 1rem; /* Buton yazı boyutu */
+      border-radius: 30px; /* Köşeleri yuvarlatır */
+      box-shadow: 1px 4px 8px rgb(169, 166, 183);
+  }
+  .btn-danger:hover {
+      background-color: #c82333; /* Hover durumunda daha koyu kırmızı */
+      text-decoration: underline; /* Alt çizgi yok */
+      box-shadow: 1px 4px 8px rgb(121, 73, 58);
+  }
+  .form-label {
+    font-size: 1rem; /* Label boyutu */
+    color: #c80202; /* Label rengi */
+    font-weight: bolder; /* Kalın yazı */
+  }
+  .form-select {
+      width: auto; /* Genişliği içeriğe göre ayarla */
+      display: inline-block; /* Satır içi blok */
+      padding: 5px; /* İç boşluk */
+      border-radius: 50px; /* Köşeleri yuvarlatır */
+      border: 1px solid #e30e0e; /* Kenarlık rengi */
+      box-shadow: 1px 4px 8px rgb(9, 5, 26);;
+  }
+</style>
+
+<main class="pt-5">
+    
+    <div class="container">
+      
+      <h1 class="h5"> Sepet </h1>
+
+	<hr>
+  {% for item in cart %}
+  {% with product=item.product %}
+      
+      <br>
+
+      <div class="row mb-4 border product-item">
+        
+        <div class="col-md-3 col-lg-2 order-md-first bg-light d-flex align-items-center">
+        
+            <img class="img-fluid mx-auto d-block" alt="Responsive image" src="{{product.image.url}}"> <!-- Product image -->
+        
+        </div>
+
+        
+        <div class="col-md-9 col-lg-10 ps-md-3 ps-lg-10">
+          
+          <a href="{{product.get_absolute_url}}" class="text-info text-decoration-none"> <!-- Product get absolute url -->
+          
+            <h1 class="h5 pt-2"> {{product.title}}<!-- Product title --> </h1>
+          
+          </a>
+          
+          <div class="border">
+            
+            <div class="col border-bottom">
+              
+                <div class="row p-3">
+              
+                <div class="col-6"> Ürün </div>
+              
+                <div class="col-6 text-end"><span class="h6 fw-bold">₺ {{product.price|mul:item.qty}} </span></div>
+            
+              </div>
+            
+            </div>
+            
+            <div class="col">
+              
+              <div class="row p-3">
+                
+                <div class="col-12">
+                  
+                  <label for="select">Adet</label>
+
+                  &nbsp; 
+                  
+                  <select id="select{{product.id}}">
+                  
+                    <option selected>
+                  
+                        {{item.qty}}
+                  
+                    </option>
+                  
+                    <option value="">1</option>
+                  
+                    <option value="">2</option>
+                  
+                    <option value="">3</option>
+                  
+                    <option value="">4</option>
+                  
+                  </select>
+                  
+                  <br> <br>
+
+                  <button type="button" data-index="{{product.id}}"
+                    class="btn btn-primary btn-sm update-button">
+                    <i class="fa-solid fa-pen"></i>&nbsp; Güncelle
+                  
+                  </button>
+                  
+                  &nbsp;
+
+                  <button type="button" data-index="{{product.id}}"
+                    class="btn btn-danger btn-sm delete-button">
+                    <i class="fa-solid fa-trash"></i>&nbsp; Sil
+        
+                  </button>
+        
+
+                </div>
+        
+            </div>
+        
+            </div>
+    
+            </div>
+    
+        </div>
+      
+    </div>
+    <hr>
+
+    {% endwith %}
+
+    {% endfor %}
+
+
+      <div class="col-12 text-end">
+ 
+        <div class="h6 fw-bold"> Genel Toplam: ₺ <div id="total" class="d-inline-flex"> {{cart.get_total}} /  $&nbsp;<span id="total-usd"></span></div></div>
+      
+        <a href="{% url 'checkout' %}" class="btn btn-primary my-2"> <i class="fa fa-chevron-circle-right" aria-hidden="true"></i> &nbsp; Ödeme Sayfasına İlerle </a>
+      </div>  
+
+    </div>
+    
+    <br>
+
+    <br>
+
+ </main>
+ <script>
+  //delete button
+
+  $(document).on('click', '.delete-button', function(e){
+       
+      e.preventDefault();
+      $.ajax({
+          type: 'POST',
+          url: '{% url "cart-delete" %}',
+          data: {
+              product_id: $(this).data('index'),
+              csrfmiddlewaretoken: "{{csrf_token}}",
+              action: 'post'
+
+          },
+
+          success: function(json){
+              //console.log(json)
+              location.reload();
+              document.getElementById("cart-qty").textContent = json.qty
+              document.getElementById("total").textContent = json.total
+
+
+          },
+
+          error: function(xhr, errmsg, err){
+              
+          }
+
+
+
+      });
+  })
+
+  //update button
+
+  $(document).on('click', '.update-button', function(e){
+       
+    e.preventDefault();
+    var theproductid = $(this).data('index');
+    $.ajax({
+        type: 'POST',
+        url: '{% url "cart-update" %}',
+        data: {
+            product_id: $(this).data('index'),
+            product_quantity: $('#select' + theproductid + ' option:selected').text(),
+            csrfmiddlewaretoken: "{{csrf_token}}",
+            action: 'post'
+
+        },
+
+        success: function(json){
+            //console.log(json)
+            location.reload(true);
+            document.getElementById("cart-qty").textContent = json.qty
+            document.getElementById("total").textContent = json.total
+
+
+        },
+
+        error: function(xhr, errmsg, err){
+            
+        }
+
+
+
+    });
+})
+document.addEventListener('DOMContentLoaded', function () {
+  var totalTL = parseFloat("{{cart.get_total}}"); // TL cinsinden genel toplamı alın
+
+  var api_key = 'a9d03fbcf1649fa5a095e243'; // ExchangeRate-API anahtarınızı buraya ekleyin
+  var api_url = `https://v6.exchangerate-api.com/v6/${api_key}/latest/USD`;
+
+  fetch(api_url)
+      .then(response => response.json())
+      .then(data => {
+          var exchange_rate = data.conversion_rates.TRY;
+          exchange_rate = parseFloat(exchange_rate);
+          var totalUSD = (totalTL / exchange_rate).toFixed(2); // Genel toplamı dolar cinsine çevirin ve iki ondalık basamağa yuvarlayın
+          document.getElementById("total-usd").textContent = totalUSD; // Genel toplamı dolar cinsinden gösteren alanı güncelleyin
+      })
+      .catch(error => {
+          console.error('Error fetching exchange rate:', error);
+          document.getElementById('total-usd').innerText = 'Error fetching exchange rate.';
+      });
+});
+
+ </script>
+
+
+
+{% endblock %}
+
