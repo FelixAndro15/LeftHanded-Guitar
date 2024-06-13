@@ -1,0 +1,97 @@
+{% include "store/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <style>
+        body {
+            background-color: #f0f2f5; /* Hafif gri arka plan */
+        }
+        .container {
+            background-color: #fff; /* Beyaz arka plan */
+            border-radius: 30px; /* Köşeleri yuvarlatır */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9); /* Hafif gölge efekti */
+            padding: 20px; /* İç boşluk */
+            margin-top: 20px; /* Üst boşluk */
+        }
+        h3 {
+            font-size: 1.6rem; /* Başlık boyutu */
+            color: #040310; /* Başlık rengi */
+            font-weight: bolder; /* Kalın yazı */
+            margin-bottom: 0px; /* Alt boşluk */
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        p {
+            font-size: 1.2rem; /* Paragraf boyutu */
+            color: #1b0505; /* Paragraf rengi */
+            margin-bottom: 20px; /* Alt boşluk */
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .form-layout {
+            transition: transform 0.2s ease-in-out; /* Hover animasyonu */
+        }
+        .form-layout:hover {
+            transform: translateY(-5px); /* Hover durumunda yukarı kaydırır */
+        }
+        .custom-btn {
+            background-color: #06121f; /* Mavi arka plan */
+            border: inset double; /* Kenarlık yok */
+            padding: 10px 20px; /* İç boşluk */
+            font-size: 1rem; /* Buton yazı boyutu */
+            border-radius: 25px; /* Köşeleri yuvarlatır */
+            color: #fff; /* Buton yazı rengi */
+            text-decoration: none; /* Alt çizgi yok */
+        }
+        .custom-btn:hover {
+            background-color: #a7cbee; /* Hover durumunda daha koyu mavi */
+            text-decoration: underline; /* Alt çizgi yok */
+            color: #06121f; /* Buton yazı rengi */
+        }
+
+    </style>
+    <body>
+        <br>
+        <div class="container bg-white shadow-md p-5 form-layout">
+            <h3> <i class="fa fa-user-circle" aria-hidden="true"></i> &nbsp; Profil Yönetimi </h3>
+        </div>
+        <br>
+        <div class="container bg-white shadow-md p-5 form-layout">
+            <h3><i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp; Hesabını Güncelle </h3>
+            <hr>
+            <br>
+
+            <form method="post" autocomplete="off">
+                {% csrf_token %}
+                {{user_form.first_name|as_crispy_field}}
+                <br>
+                {{user_form.last_name|as_crispy_field}}
+                <br>
+                {{user_form.username|as_crispy_field}}
+                <br>
+                {{user_form.email|as_crispy_field}}
+                <br>
+                <button type="submit" class="custom-btn"> <i class="fa-solid fa-pencil"></i>&nbsp; Güncelle </button>
+
+
+
+            </form>
+
+
+
+        </div>
+        <br>
+        <div class="container bg-white shadow-md p-5 form-layout">
+            <h3><i class="fa fa-frown-o" aria-hidden="true"></i> &nbsp; Hesabını Sil </h3>
+            <hr>
+            <p><strong> Hesabını Silmek İstiyorsan Devam Et </strong></p>
+            <a class="custom-btn" type="button"  href="{% url 'delete-account' %}"> <i class="fa-solid fa-eraser"></i>&nbsp; Silme Sayfası </a>
+        </div>  
+        
+            <br>
+             
+    </body>
+    <br> <br>
+
+
+
+
+{% endblock %}

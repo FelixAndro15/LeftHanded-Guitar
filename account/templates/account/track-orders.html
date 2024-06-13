@@ -1,0 +1,87 @@
+
+{% include "store/base.html" %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+    <style>
+        body {
+            background-color: #f0f2f5; /* Hafif gri arka plan */
+        }
+        .container {
+            background-color: #fff; /* Beyaz arka plan */
+            border-radius: 50px; /* Köşeleri yuvarlatır */
+            box-shadow: 0 4px 8px rgba(22, 5, 41, 0.8); /* Hafif gölge efekti */
+            padding: 20px; /* İç boşluk */
+            margin-top: 10px; /* Üst boşluk */
+        }
+        h3 {
+            font-size: 1.6rem; /* Başlık boyutu */
+            color: #0c061f; /* Başlık rengi */
+            font-weight: bolder; /* Kalın yazı */
+            margin-bottom: 5px; /* Alt boşluk */
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        p {
+            font-size: 1.2rem; /* Paragraf boyutu */
+            color: #230909; /* Paragraf rengi */
+            margin-bottom: 0px; /* Alt boşluk */
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+
+    <br>
+
+    <div class="container bg-white shadow-md p-5 form-layout ">
+
+        <h3> <i class="fa fa-list-alt" aria-hidden="true"></i> &nbsp; Siparişlerim </h3>
+        <br>
+
+        <p><strong> Tüm Siparişlerinizi Görüntüleyin. </strong></p>
+
+        <hr>
+
+
+    </div>
+
+    <br>
+
+    <div class="container bg-white shadow-md p-5 form-layout ">
+
+
+        {% for order in orders %}
+
+            <strong> <i class="fa fa-list-alt" aria-hidden="true"></i> &nbsp;  Sipariş İçeriği No: {{forloop.counter}} </strong>
+            
+            <br> <br>
+
+            Sipariş Veren Kullanıcı: {{ order.user }}
+
+            <br> <br>
+
+            Sipariş Verilen Ürün: {{order.product}}
+
+            <br> <br>
+        
+            {{order.quantity}} Adet
+
+            <br> <br>
+
+            Birim Fiyat: ₺ {{order.price}}
+
+<br> <br>
+
+            <hr>
+
+
+        {% endfor %}
+
+    </div>
+
+    <br>
+
+{% endblock %}

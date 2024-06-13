@@ -1,0 +1,163 @@
+{% include "store/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<style>
+    body {
+        background-color: #d4dde7; /* Hafif gri arka plan */
+    }
+
+    .container {
+        background-color: #ffffff; /* Beyaz arka plan */
+        padding: 15px;
+        border-radius: 30px; /* Köşeleri yuvarlat */
+        box-shadow: 0 4px 8px rgba(20, 6, 73, 1.2); /* Hafif gölge efekti */
+    }
+
+    .text-area {
+        padding: 10px; /* İç boşluk */
+    }
+
+    h2 {
+        font-size: 1.9rem; /* Başlık boyutu */
+        color: #050e2f; /* Başlık rengi */
+        margin-bottom: 25px; /* Alt boşluk */
+        text-shadow: 0 4px 8px rgba(13, 7, 21, 0.5);
+    }
+
+    p {
+        font-size: 1.125rem; /* Paragraf boyutu */
+        color: #04052a; /* Paragraf rengi */
+        line-height: 1.6; /* Satır yüksekliği */
+        text-align: justify; /* İki yana yasla */
+        text-shadow: 0 4px 8px rgba(28, 19, 82, 0.4);
+    }
+
+    .img-fluid {
+        width: 100%;
+        height: auto;
+        border-radius: 30px; /* Görsellerin köşelerini yuvarla */
+        box-shadow: 1px 4px 8px rgba(37, 25, 53, 0.9); /* Görsellere hafif gölge ekle */
+    }
+
+    .row {
+        margin-bottom: 30px; /* Satırlar arası boşluk */
+    }
+    footer {
+        background-color: #050e2f; /* Footer arka plan rengi */
+        color: white; /* Footer metin rengi */
+        padding: 20px;
+        text-align: center;
+        margin-top: 0px;
+        border-radius: 0 0 0px 0px; /* Alt köşeleri yuvarla */
+    }
+
+    .footer-icons {
+        display: flex;
+        justify-content: center;
+        gap: 35px;
+        margin-bottom: 0px;
+    }
+    .footer-icons a {
+        color: white;
+        font-size: 1.3rem;
+        transition: color 0.3s;
+        text-decoration: none;
+    }
+
+    .footer-icons a:hover {
+        color: #54545d;
+    }
+
+    .footer-contact {
+        font-size: 1rem;
+    }
+</style>
+<body>
+    <div class="container py-5">
+        <div class="row mb-4 align-items-center">
+            <!-- Top Left Photo -->
+            <div class="col-md-6">
+                <img src="{% static 'images/gtr.jpg' %}" alt="Photo 1" class="img-fluid">
+            </div>
+            <!-- Text Area for Top Left Photo -->
+            <div class="col-md-6">
+                <div class="text-area">
+                    <h2>Solak Gitarlar ve Eşsiz Müziğin Gücü</h2>
+                    <p>Solak gitarlar, eşsiz bir müzik deneyimi sunarak, müziğin sınırlarını zorlayan sanatçılar için mükemmel bir 
+                        araçtır. Bu özel enstrümanlar, solak müzisyenlerin doğal yeteneklerini ve yaratıcılıklarını tam anlamıyla 
+                        sergilemelerine olanak tanır. Solak gitar çalmak, müzikal ifadede yeni ufuklar açar ve kişisel tarzı öne 
+                        çıkarır. Her notada, her akorda, müziğin gücünü ve bireyselliğin önemini hissedin. Solak gitarlar, müziğin 
+                        evrenselliğini ve her sanatçının benzersiz yolculuğunu kutlar.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4 align-items-center">
+            <!-- Text Area for Middle Right Photo -->
+            <div class="col-md-6">
+                <div class="text-area">
+                    <h2>Paul McCartney ve Yaratıcılık</h2>
+                    <p>Paul McCartney, The Beatles'ın efsanevi bas gitaristi ve eşsiz bir müzik dahisidir. Onun müzikal yeteneği ve 
+                        yaratıcı vizyonu, milyonlarca insana ilham verdi ve vermeye devam ediyor. McCartney'nin kariyeri, hayal gücünün 
+                        sınırlarını zorlayan bir başarı öyküsüdür. Her zaman yeni melodiler ve ritimler keşfetme tutkusu, yaratıcılığın 
+                        sonsuzluğunu gösterir. Sanatında yenilikçi ve cesur olun; McCartney'nin mirası, müziğin ve hayal gücünün 
+                        dünyayı değiştirebileceğini hatırlatır.</p>
+                </div>
+            </div>
+            <!-- Middle Right Photo -->
+            <div class="col-md-6">
+                <img src="{% static 'images/paul.jpg' %}" alt="Photo 2" class="img-fluid">
+            </div>
+        </div>
+        
+
+        <div class="row align-items-center">
+            <!-- Bottom Left Photo -->
+            <div class="col-md-6">
+                <img src="{% static 'images/kurt1.jpeg' %}" alt="Photo 3" class="img-fluid">
+            </div>
+            <!-- Text Area for Bottom Left Photo -->
+            <div class="col-md-6">
+                <div class="text-area">
+                    <h2>Kurt Cobain ve Tutku</h2>
+                    <p> Kurt Cobain, Nirvana'nın yüzü ve bir tam bir müzik tutkunudur. O, müziğiyle bir nesli şekillendirdi ve içsel sancılarını sanata dönüştürme cesaretiyle tanındı. 
+                        Cobain, kendine has tarzı ve sesiyle, müziğin dönüştürücü gücünü gösterdi. Onun hikayesi, yaratıcı ruhun 
+                        sınırsız potansiyelini yansıtır. Kendi gerçeğinizi bulun ve dünyaya duyurun; yaratıcılığınızın sınırları yoktur. 
+                        Cobain'in mirası, tutkularınızın peşinden gitmenin ve kendi yolunuzu çizmenin önemini vurgular.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mb-4 align-items-center">
+            <!-- Text Area for Middle Right Photo -->
+            <div class="col-md-6">
+                <div class="text-area">
+                    <h2>Jimi Hendrix ve Yenilikçilik</h2>
+                    <p>Jimi Hendrix, gitarı adeta konuşturan ve rock müziğin sınırlarını yeniden tanımlayan efsanevi bir gitar virtüözüdür. 
+                        Onun teknik ustalığı ve yaratıcı vizyonu, müziğin her alanında yenilikçi bir yaklaşım sergiler. Hendrix'in performansları, 
+                        özgünlüğün ve cesaretin simgesidir. Sanatında korkusuz ol; Hendrix'in mirası, yaratıcılığın ve bireyselliğin gücünü gösterir. 
+                        Jimi Hendrix, müziğe getirdiği yeniliklerle ilham kaynağı olmaya devam ediyor. Onun müziği, dinleyicilere her zaman yeni perspektifler sunar.</p>
+                </div>
+            </div>
+            <!-- Middle Right Photo -->
+            <div class="col-md-6">
+                <img src="{% static 'images/jimi.jpg' %}" alt="Photo 2" class="img-fluid">
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="footer-icons">
+            <a href="mailto:tunahangok20@gmail.com"><i class="fa-regular fa-envelope"></i> &nbsp; tunahangok20@gmail.com</a> &nbsp;
+            <a href="tel:+905071828897"><i class="fa-solid fa-phone"></i> +905071828897</a> &nbsp;
+            <a href="https://maps.app.goo.gl/Bs1fjEzGddShNcWFA" target="_blank"><i class="fa-solid fa-map-location-dot"></i> &nbsp; Pamukkale/Denizli</a> &nbsp;
+            <a href="https://www.linkedin.com/in/tunahan-g%C3%B6k-939399253/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+        </div>
+        <div class="footer-contact">
+        </div>
+    </footer>
+</body>
+
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% include "store/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<style>
+    body {
+        background-color: #e5e3e3; /* Hafif gri arka plan */
+    }
+    .container {
+        background-color: #e21616; /* Beyaz arka plan */
+        border-radius: 50px; /* Köşeleri yuvarlatır */
+        box-shadow: 0 4px 8px rgb(14, 6, 38); /* Hafif gölge efekti */
+        padding: 20px; /* İç boşluk */
+        margin-top: 10px; /* Üst boşluk */
+    }
+    h4 {
+        font-size: 1.5rem; /* Başlık boyutu */
+        color: #0b0416; /* Başlık rengi */
+        font-weight: bolder; /* Kalın yazı */
+        margin-bottom: 10px; /* Alt boşluk */
+    }
+    p {
+        font-size: 1.3rem; /* Paragraf boyutu */
+        color: #100202; /* Paragraf rengi */
+        margin-bottom: 20px; /* Alt boşluk */
+    }
+    li {
+        font-size: 1.1rem; /* Liste öğesi boyutu */
+        color: #191819; /* Liste öğesi rengi */
+        margin-bottom: 5px; /* Alt boşluk */
+    }
+    .form-layout {
+        transition: transform 0.2s ease-in-out; /* Hover animasyonu */
+    }
+    .form-layout:hover {
+        transform: translateY(-5px); /* Hover durumunda yukarı kaydırır */
+    }
+    .custom-btn {
+        background-color: #06121f; /* Mavi arka plan */
+        border: inset double; /* Kenarlık yok */
+        padding: 10px 20px; /* İç boşluk */
+        font-size: 1rem; /* Buton yazı boyutu */
+        border-radius: 25px; /* Köşeleri yuvarlatır */
+        color: #fff; /* Buton yazı rengi */
+        text-decoration: none; /* Alt çizgi yok */
+    }
+    .custom-btn:hover {
+        background-color: #a7cbee; /* Hover durumunda daha koyu mavi */
+        text-decoration: underline; /* Alt çizgi yok */
+        color: #06121f; /* Buton yazı rengi */
+    }
+</style>
+<body>
+    <br>
+    <div class="container bg-white shadow-md p-5 form-layout">
+        <h4> Hoşgeldin {{user}} </h4>
+        <hr>
+        <p> Buradan Aşağıdakileri Yapabilirsin </p>
+        <li> Siparişlerini Takip Et </li>
+        <li> Hesabını Yönet </li>
+        <li> Adresini Yönet </li>
+    </div>   
+    <br>
+    <div class="container bg-white shadow-md p-5 form-layout">
+        <h4> Sipariş Takibi </h4>
+        <hr>
+        <p> Tüm Siparişlerine Buradan Erişebilirsin </p>
+        <a class="custom-btn" type="button"  href="{% url 'track-orders' %}"> Sipariş Yönetimi </a>
+    </div> 
+    <br>
+    <div class="container bg-white shadow-md p-5 form-layout">
+        <h4> Hesap Yönetimi </h4>
+        <hr>
+        <p> Hesabını Güncelle veya Sil </p>
+        <a class="custom-btn" type="button"  href="{% url 'profile-management' %}"> Profil Yönetimi </a>
+        <br>
+    </div> 
+    <br>
+
+    <div class="container bg-white shadow-md p-5 form-layout">
+        <h4> Adres Yönetimi </h4>
+        <hr>
+        <p> Kargolama Adresini Yönet </p>
+        <a class="custom-btn" type="button"  href="{% url 'manage-shipping' %}"> Adres Yönetimi </a>
+        <br>
+    </div> 
+    <br>
+
+
+</body>
+
+{% endblock %}

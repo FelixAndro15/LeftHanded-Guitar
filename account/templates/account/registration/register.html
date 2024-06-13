@@ -1,0 +1,100 @@
+{% include "store/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <style>
+        body {
+            background-color: #f0f2f5; /* Hafif gri arka plan */
+        }
+        .container {
+            background-color: #fff; /* Beyaz arka plan */
+            border-radius: 30px; /* Köşeleri yuvarlatır */
+            box-shadow: 0 4px 8px rgba(16, 4, 34, 0.9); /* Hafif gölge efekti */
+            padding: 20px; /* İç boşluk */
+            margin-top: 20px; /* Üst boşluk */
+        }
+        h3 {
+            font-size: 1.7rem; /* Başlık boyutu */
+            color: #0c0416; /* Başlık rengi */
+            font-weight: bold; /* Kalın yazı */
+            margin-bottom: 10px; /* Alt boşluk */
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        p {
+            font-size: 1.3rem; /* Paragraf boyutu */
+            color: #0d0e2b; /* Paragraf rengi */
+            margin-bottom: 20px; /* Alt boşluk */
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        form {
+            margin-top: 10px; /* Formun üst boşluğu */
+        }
+        .btn-custom {
+            background-color: #081b2f; /* Mavi arka plan */
+            border: dotted; /* Kenarlık yok */
+            padding: 10px 20px; /* İç boşluk */
+            font-size: 1.2rem; /* Buton yazı boyutu */
+            border-radius: 35px; /* Köşeleri yuvarlatır */
+            color: #fff; /* Buton yazı rengi */
+            text-decoration: none; /* Alt çizgi yok */
+            width: 100%; /* Butonu tam genişlikte yapar */
+        }
+        .btn-custom:hover {
+            background-color: #aec4dc; /* Hover durumunda daha koyu mavi */
+            border: dotted; /* Kenarlık yok */
+            color: #0f052f;
+            text-decoration: underline;
+        }
+        .form-control {
+            margin-bottom: 7px; /* Form elemanları arasındaki boşluk */
+        }
+        .text-centerr a {
+            color: #3c3c98; /* Link rengi */
+            text-decoration: none; /* Alt çizgi yok */
+        }
+        .text-centerr a:hover {
+            text-decoration: underline; /* Hover durumunda alt çizgi */
+        }
+    </style>
+    <body>
+        <br>
+        <div class="container bg-white shadow-md p-5 form-layout">
+            <h3> Hesap Oluştur </h3>
+            <hr>
+            <h5> Favori Enstrümanınız Sizi Bekliyor </h5>
+            <br>
+
+            <form method="post" autocomplete="off">
+                {% csrf_token %}
+                {{form.first_name|as_crispy_field}}
+                <br>
+                {{form.last_name|as_crispy_field}}
+                <br>
+                {{form.username|as_crispy_field}}
+                <br>
+                {{form.email|as_crispy_field}}
+                <br>
+                {{form.password1|as_crispy_field}}
+                <br>
+                {{form.password2|as_crispy_field}}
+                <br>
+                <button type="submit" class="btn-custom"> &nbsp; Hesap Oluştur </button>
+                <br> <br>
+                <div class="text-centerr">
+                    <a href="{% url 'my-login' %}"> Zaten Bir Hesabın Var Mı? </a>
+                </div>
+
+
+            </form>
+
+
+
+        </div>
+
+    </body>
+    <br> <br>
+
+
+
+
+{% endblock %}
