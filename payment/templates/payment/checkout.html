@@ -1,0 +1,326 @@
+{% include "store/base.html" %}
+
+
+{% load static %}
+
+{% block content %}
+
+
+<style>
+    body {
+        background-color: #bdc6ce; /* Hafif gri arka plan */
+    }
+    .container {
+        max-width: 800px; /* Konteyner genişliği */
+        margin: 0 auto; /* Ortalamak için otomatik kenar boşlukları */
+        background-color: #ffffff; /* Beyaz arka plan */
+        border-radius: 20px; /* Köşeleri yuvarlatır */
+        box-shadow: 0 4px 8px rgba(14, 13, 47, 0.9); /* Hafif gölge efekti */
+        padding: 40px; /* İç boşluk */
+    }
+    h3 {
+        font-size: 1.5rem; /* Başlık boyutu */
+        color: #0a1624; /* Başlık rengi */
+        font-weight: bold; /* Kalın yazı */
+        margin-bottom: 20px; /* Alt boşluk */
+    }
+    p {
+        font-size: 1.3rem; /* Paragraf boyutu */
+        color: #210707; /* Paragraf rengi */
+        margin-bottom: 10px; /* Alt boşluk */
+    }
+    hr {
+        border: thick; /* Kenarlık kaldırılır */
+        border-top: 2px solid #05111d; /* Üst kenarlık */
+        margin: 0px 10; /* Üst ve alt boşluk */
+    }
+    .form-field {
+        margin-bottom: 15px; /* Alt boşluk */
+    }
+    .form-control {
+        padding: 10px; /* İç boşluk */
+        border: 1px solid #0b0b35; /* Kenarlık rengi */
+        border-radius: 15px; /* Köşeleri yuvarlatır */
+        box-shadow: 0 0 5px rgba(7, 31, 57, 0.5);
+    }
+    .form-control:focus {
+        border-color: #2769b1; /* Odaklandığında kenarlık rengi */
+        box-shadow: 0 0 5px rgba(7, 31, 57, 0.5); /* Odaklanma gölgesi */
+    }
+</style>
+
+
+    <body>
+
+        <br>
+
+        <div class="container bg-white shadow-md p-5" style="width:500px; border-radius:20px;">
+
+            <form id="form" onsubmit="event.preventDefault();">
+
+                <div>
+
+                    <h3> <i class="fa fa-chevron-circle-right" aria-hidden="true"></i> &nbsp; Siparişinizi Tamamlayın </h3>
+
+                    <p> Lütfen Gerekli Bilgileri Giriniz </p>
+ 
+
+
+                    <hr>
+
+                    <br>
+
+                    <div class="form-field">
+                    
+                        <input class="form-control validate" id="name" type="text" placeholder="Tam Ad*" autocomplete="off" value="{{shipping.full_name}}" required>
+
+                    </div>
+
+
+                    <br>
+
+
+                    <div class="form-field">
+
+                        <input class="form-control validate" id="email" type="email" placeholder="Email*" autocomplete="off" value="{{shipping.email}}" required>
+
+                    </div>
+
+                    
+                    <br>
+
+                    
+                    <div class="form-field">
+
+                        <input class="form-control validate" id="address1" type="text" placeholder="Adres 1*" autocomplete="off" value="{{shipping.address1}}" required>
+
+                    </div>
+
+
+                    <br>
+
+
+                    <div class="form-field">
+
+                        <input class="form-control validate" id="address2" type="text" placeholder="Adres 2*" autocomplete="off" value="{{shipping.address2}}" required>
+
+                    </div>
+
+
+                    <br>
+
+
+                    <div class="form-field">
+
+                        <input class="form-control validate" id="city" type="text" placeholder="Şehir*" autocomplete="off" value="{{shipping.city}}" required>
+
+                    </div>
+
+
+                    <br>
+
+
+                    <div class="form-field">
+
+                        <input class="form-control" id="state" type="text" placeholder="Eyalet (Opsiyonel)" autocomplete="off" value="{{shipping.state}}">
+
+                    </div>
+
+
+                    <br>
+
+
+                    <div class="form-field">
+
+                        <input class="form-control" id="zipcode" type="text" placeholder="Posta Kodu (Opsiyonel)" autocomplete="off" value="{{shipping.zipcode}}">
+
+                    </div>
+            
+                </div>
+                
+
+                <br>
+
+
+
+              <!--<button id="complete-order" type="submit" class="btn btn-primary navbar-btn text-white"> &nbsp; Siparişi Tamamla </button>
+              -->
+                <!--  Paypal  -->
+                <div id="paypal-button-container"></div> 
+
+                <script src="https://www.paypal.com/sdk/js?client-id=AbNOpaHG0ip2dBx6CTRdwuUHdFWWM80yHUGi6iJHmrlro0Y76hOpAIZLNB4SDxbGoLlr7vLemWLeaPfL&currency=USD&intent=capture&enable-funding=venmo" data-sdk-integration-source="integrationbuilder"></script>
+
+
+
+            </form>
+
+        </div>
+
+        
+
+        <br>
+
+
+    </body>
+
+
+    <script> 
+        document.addEventListener('DOMContentLoaded', function () {
+            var total_price = '{{cart.get_total}}';
+    
+            total_price = parseFloat(total_price);
+
+            var api_key = 'a9d03fbcf1649fa5a095e243'; // ExchangeRate-API anahtarınızı buraya ekleyin
+            var api_url = `https://v6.exchangerate-api.com/v6/${api_key}/latest/USD`;
+
+            fetch(api_url)
+                .then(response => response.json())
+                .then(data => {
+                    var exchange_rate = data.conversion_rates.TRY;
+                    exchange_rate = parseFloat(exchange_rate);
+                    var summary = (total_price / exchange_rate).toFixed(2);
+    
+    /*var exchange_rate = fetch('https://api.exchangeratesapi.io/v1/latest/USD?access_key=a9d03fbcf1649fa5a095e243')
+        .then(response => response.json())
+        .then(data => data.convertion_rates['USD']);
+      
+      // Dolar tutarını hesaplayın ve yuvarlayın
+    exchange_rate = parseFloat(exchange_rate);  
+    var summary = (total_price / exchange_rate).toFixed(2);*/
+    
+    /*var exchange = 32.20
+    exchange = parseFloat(exchange);
+    var summary = (total_price / exchange).toFixed(2);*/
+
+    const paypalButtonsComponent = paypal.Buttons({
+        style: {
+            color: "blue",
+            shape: "pill",
+            layout: "vertical",
+            label: "pay"
+        },
+            
+        onInit: function(data, actions) {
+            actions.disable();
+
+            document.querySelectorAll('.validate').forEach(item =>{
+                item.addEventListener('keyup', event =>{
+                    var order_verified = 'Yes';
+                    function checkInputs(){
+                        $(':input[required]').each(function(){
+                            if($(this).val()== ''){
+                                return order_verified = 'No';        
+                            }
+                        });
+                        return order_verified;
+                    }
+                    var isOrderVerified = checkInputs()
+                    if(isOrderVerified === 'Yes')
+                    {
+                        actions.enable();
+                    }
+                    else
+                    {
+                        actions.disable();
+                    }
+
+                });
+
+
+            });
+            var order_verified = 'Yes';
+            function checkInputs(){
+                $(':input[required]').each(function(){
+                    if($(this).val()== ''){
+                        return order_verified = 'No';        
+                    }
+                });
+                return order_verified;
+            }
+            var isOrderVerified = checkInputs()
+            if(isOrderVerified === 'Yes')
+            {
+                actions.enable();
+            }
+            else
+            {
+                actions.disable();
+            }
+
+            
+        },  
+
+        createOrder: (data, actions) => {
+                // https://developer.paypal.com/api/orders/v2/#orders-create-request-body
+            const createOrderPayload = {
+                purchase_units: [
+                    {
+                        amount: {
+                            value: summary
+                        }
+                    }
+                ]
+            };
+    
+            return actions.order.create(createOrderPayload);
+        },
+    
+
+        onApprove: (data, actions) => {
+            const captureOrderHandler = (details) => {
+                const payerName = details.payer.name.given_name;
+                console.log('Transaction completed');
+                    
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "complete-order" %}',
+                    data: {
+                        name: $('#name').val(),
+                        email: $('#email').val(),
+                        address1: $('#address1').val(),
+                        address2: $('#address2').val(),
+                        city: $('#city').val(),
+                        state: $('#state').val(),
+                        zipcode: $('#zipcode').val(),
+                        csrfmiddlewaretoken: "{{csrf_token}}",
+                        action: 'post'
+            
+                    },
+            
+                    success: function(json){
+                        window.location.replace("{% url 'payment-success' %}");
+                    },
+            
+                    error: function(xhr, errmsg, err){
+                        window.location.replace("{% url 'payment-failed' %}");
+                    }
+            
+            
+            
+                });
+    
+            };
+    
+            return actions.order.capture().then(captureOrderHandler);
+        },
+    
+        onError: (err) => {
+            console.error('An error prevented the buyer from checking out with PayPal');
+        }
+    });
+    
+    paypalButtonsComponent
+        .render("#paypal-button-container")
+        .catch((err) => {
+            console.error('PayPal Buttons failed to render');
+        }); 
+    }) 
+    .catch(error => {
+            console.error('Error fetching exchange rate:', error);
+            document.getElementById('converted-price').innerText = 'Error fetching exchange rate.';
+        });
+    });
+
+    </script>
+
+{% endblock %}

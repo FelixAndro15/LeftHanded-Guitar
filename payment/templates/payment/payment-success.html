@@ -1,0 +1,87 @@
+{% include "store/base.html" %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+        background-color: #f8f9fa; /* Hafif gri arka plan */
+    }
+    .form-layout {
+        border-radius: 40px; /* Köşeleri yuvarlatır */
+        padding: 40px; /* İç boşluk */
+        box-shadow: 0 4px 8px rgba(22, 14, 44, 0.5); /* Hafif gölge efekti */
+    }
+    
+    .text-center h4 {
+        font-size: 1.75rem; /* Başlık boyutu */
+        font-weight: thin; /* Kalın yazı */
+        margin-top: 10px; /* Üst boşluk */
+        text-shadow: 0 4px 8px rgba(59, 10, 193, 0.2);
+    }
+    .text-center hr {
+        border-top: 2px solid #100e20; /* Üst kenarlık */
+        width: 80%; /* Genişlik */
+        margin: 20px auto; /* Ortalamak için otomatik kenar boşlukları */
+    }
+    .text-center p {
+        font-size: 1.25rem; /* Metin boyutu */
+        color: #0a1b29; /* Metin rengi */
+        margin-bottom: 20px; /* Alt boşluk */
+        text-shadow: 0 4px 8px rgba(59, 10, 193, 0.2);
+    }
+    .btn-primary {
+        background-color: #d55c05; /* Mavi arka plan */
+        border: inset double; /* Kenar yok */
+        padding: 10px 20px; /* İç boşluk */
+        font-size: 1.25rem; /* Buton yazı boyutu */
+        border-radius: 30px; /* Köşeleri yuvarlat */
+        text-decoration: none; /* Alt çizgi yok */
+        color: rgb(187, 43, 18);
+        box-shadow: 0 4px 8px rgba(21, 8, 56, 0.6);
+    }
+    .btn-primary:hover {
+        background-color: #ed3a12; /* Hover durumunda daha koyu mavi */
+    }
+    .custom-button {
+        background-color: #1e1439; /* Yeşil arka plan */
+        color: white; /* Beyaz yazı rengi */
+        padding: 10px 20px; /* İç boşluk */
+        border-radius: 5px; /* Köşeleri yuvarlat */
+        border: dotted; /* Kenar yok */
+        text-decoration: none; /* Alt çizgi yok */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    }
+    .custom-button:hover {
+        background-color: #c8c5d1; /* Hover durumunda daha koyu yeşil */
+        color:#1e1439;
+        text-decoration: underline; /* Alt çizgi yok */
+        border: dotted; /* Kenar yok */
+        transform: translateY(-5px);
+    }
+
+
+</style>
+
+<body>
+    <br>
+    <div class="container bg-white shadow-md p-5 form-layout">
+        <div class="text-center">
+            <i class="text-success fa fa-thumbs-up fa-3x" aria-hidden="true"></i>
+        
+            <br> <br>
+            <h4> <strong> Ödeme Başarılı Oldu </strong></h4>
+            <hr>
+            <p><strong> Bizi Tercih Ettiğiniz İçin Teşekkür Ederiz </strong></p>
+            {% if user.is_authenticated %}
+            <a class="btn btn-primary navbar-btn text-white" type="button"  href="{% url 'track-orders' %}"> Sipariş Yönetimi </a>
+            {% else %}
+            <p><strong> Bize Katılmak İçin: </strong></p>
+            <a href="{% url 'register' %}" class="btn custom-button my-2"><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp; Bir Hesap Oluştur </a>
+            {% endif %}
+        </div>
+    </div>    
+</body>    
+
+
+
+{% endblock %}

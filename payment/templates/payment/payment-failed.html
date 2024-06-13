@@ -1,0 +1,64 @@
+{% include "store/base.html" %}
+{% load static %}
+{% block content %}
+<style>
+    body {
+        background-color: #f8f9fa; /* Hafif gri arka plan */
+    }
+    .form-layout {
+        border-radius: 40px; /* Köşeleri yuvarlatır */
+        padding: 40px; /* İç boşluk */
+        box-shadow: 0 4px 8px rgba(22, 14, 44, 0.5); /* Hafif gölge efekti */
+    }
+    
+    .text-center h4 {
+        font-size: 1.75rem; /* Başlık boyutu */
+        font-weight: thin; /* Kalın yazı */
+        margin-top: 10px; /* Üst boşluk */
+        text-shadow: 0 4px 8px rgba(59, 10, 193, 0.2);
+    }
+    .text-center hr {
+        border-top: 2px solid #100e20; /* Üst kenarlık */
+        width: 80%; /* Genişlik */
+        margin: 20px auto; /* Ortalamak için otomatik kenar boşlukları */
+    }
+    .text-center p {
+        font-size: 1.25rem; /* Metin boyutu */
+        color: #0a1b29; /* Metin rengi */
+        margin-bottom: 0px; /* Alt boşluk */
+        text-shadow: 0 4px 8px rgba(59, 10, 193, 0.2);
+    }
+    .btn-primary {
+        background-color: #d55c05; /* Mavi arka plan */
+        border: inset double; /* Kenar yok */
+        padding: 10px 20px; /* İç boşluk */
+        font-size: 1.25rem; /* Buton yazı boyutu */
+        border-radius: 30px; /* Köşeleri yuvarlat */
+        text-decoration: none; /* Alt çizgi yok */
+        color: rgb(187, 43, 18);
+    }
+    .btn-primary:hover {
+        background-color: #ed3a12; /* Hover durumunda daha koyu mavi */
+    
+    }
+
+
+</style>
+
+<body>
+    <br>
+    <div class="container bg-white shadow-md p-5 form-layout">
+        <div class="text-center">
+            <i class="text-danger fa fa-thumbs-down fa-3x" aria-hidden="true"></i>
+        
+            <br> <br>
+            <h4> <strong> Ödeme Başarısız Oldu </strong></h4>
+            <hr>
+            <p> Bankanızla İletişime Geçebilirsiniz </p>
+        </div>
+    </div>    
+</body>    
+
+
+
+{% endblock %}
