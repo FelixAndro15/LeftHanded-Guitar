@@ -1,0 +1,169 @@
+
+{% extends "./base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    .product-container {
+        border: 2px solid #0f4454; /* Çerçeve rengi ve kalınlığı */
+        padding: 10px; /* Çerçeve iç boşluğu */
+        border-style: inset double; /* Çift çizgili desenli çerçeve */
+        border-radius: 20px; /* Köşeleri yuvarlatır */
+        box-shadow: 2px 4px 8px rgb(25, 16, 125, 1);
+      }
+      .col-md-5 {
+        border: 2px solid #cc1d1d; /* Çerçeve rengi ve kalınlığı */
+        padding: 5px; /* Çerçeve iç boşluğu */
+        border-style: inset double; /* Çift çizgili desenli çerçeve */
+        border-radius: 18px; /* Köşeleri yuvarlatır */
+        box-shadow: 2px 4px 8px rgb(25, 16, 125, 1);
+        height: 100%; /* Kartların aynı boyutta olmasını sağlar */
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      #add-button {
+        width: 120px; /* Butonun genişliği */
+        height: 60px; /* Butonun yüksekliği */
+        background-color: #ededed; /* Butonun arkaplan rengi */
+        color: #ffffff; /* Buton metin rengi */
+        border: thick double; /* Buton kenarlık stilini kaldırma */
+        font-family:Arial, Helvetica, sans-serif;
+        text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.3);
+        border-radius: 18px; /* Köşeleri yuvarlatır */
+      }
+      
+      /* "Sepete Ekle" butonunun üzerine gelindiğindeki rengi */
+      #add-button:hover {
+        background-color: #fcfcfc; /* Butonun üzerine gelindiğindeki arkaplan rengi */
+      }
+      .justified-text {
+        text-align: justify;
+    }
+      
+</style>
+
+<div class="container">
+
+    <main class="pt-5">
+
+        <div class="row g-6">
+
+            <div class="col-md-5 col-lg-5 order-md-first bg-light">
+            
+                <img class="img-fluid mx-auto d-block" alt="Responsive image" src="{{ product.image.url }}"> <!-- Product image -->
+            
+            </div>
+
+            <div class="col-md-7 col-lg-7 ps-md-3 ps-lg-5">
+                <h1> <strong> {{product.brand}} </strong> </h1>
+                <br>
+                <h1 class="mb-0 h4"> {{ product.title }}  </h1>
+
+                <hr>
+
+                <h5 class="justified-text"> {{product.description}} </h5>
+                <br>
+
+                <div class="product-container">
+
+                    <div class="col border-bottom">
+
+                        <div class="row p-3">
+
+                            <div class="col-6"> <strong> Fiyat </strong> </div>
+
+                            <div class="col-6 text-end"><span class="h4 fw-bold">₺ {{ product.price }}  </span></div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="col">
+              
+                        <div class="row p-3">
+              
+                            <div class="col-6">
+              
+                               
+                                <label for="select"><strong>Adet</strong></label>
+                                
+                                &nbsp; 
+                               
+                                <select id="select">
+              
+                                    <option value="1">1</option>
+              
+                                    <option value="2">2</option>
+              
+                                    <option value="3">3</option>
+              
+                                    <option value="4">4</option>
+              
+                                </select>
+
+                            </div>
+
+                            <div class="col-6 text-end">
+                                
+                                <button type="button" id="add-button" value="{{product.id}}" class="btn btn-primary btn-sm">
+                        
+                                    <i class="fa-solid fa-basket-shopping"></i>&nbsp; Sepete Ekle 
+                            
+                                </button> 
+                            
+
+                            </div>
+                        
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <br>
+
+</div>
+
+<script>
+    $(document).on('click', '#add-button', function(e){
+       
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url "cart-add" %}',
+            data: {
+                product_id: $('#add-button').val(),
+                product_quantity:  $('#select option:selected').text(),
+                csrfmiddlewaretoken: "{{csrf_token}}",
+                action: 'post'
+
+            },
+
+            success: function(json){
+                //console.log(json)
+                document.getElementById("cart-qty").textContent = json.qty
+
+            },
+
+            error: function(xhr, errmsg, err){
+                
+            }
+
+
+
+        });
+    })
+
+</script>
+
+
+{% endblock %}

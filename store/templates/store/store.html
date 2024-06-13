@@ -1,0 +1,120 @@
+
+{% extends "./base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+
+<style>
+    .custom-heading {
+        color: #141f2c; /* Mavi renk */
+        font-size: 2.2rem; /* Büyük yazı boyutu */
+        font-weight: bolder; /* Kalın yazı */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Hafif gölge efekti */
+        font-style: italic;
+    }
+    .custom-paragraph {
+        font-style: normal; /* İtalik yazı */
+        color: #140c26; /* Gri renk */
+        line-height: 1.9; /* Satır yüksekliği */
+    }
+    .custom-button {
+        background-color: #1e1439; /* Yeşil arka plan */
+        color: white; /* Beyaz yazı rengi */
+        padding: 10px 20px; /* İç boşluk */
+        border-radius: 5px; /* Köşeleri yuvarlat */
+        border: dotted; /* Kenar yok */
+        text-decoration: none; /* Alt çizgi yok */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 1);
+    }
+    .custom-button:hover {
+        background-color: #c8c5d1; /* Hover durumunda daha koyu yeşil */
+        color:#1e1439;
+        text-decoration: underline; /* Alt çizgi yok */
+        border: dotted; /* Kenar yok */
+        transform: translateY(-5px);
+    }
+    .custom-card {
+        border: 3px dashed #df0909; /* Kalın ve desenli çerçeve */
+        border-radius: 50px; /* Köşeleri yuvarlatır */
+        box-shadow: 0 4px 8px rgb(0, 0, 0, 5); /* Hafif gölge efekti */
+    }
+    .custom-card img {
+        border-bottom: 3px dashed #007bff; /* Alt çerçeve */
+    }
+    .custom-product-title {
+        font-size: 1.9rem; /* Büyük yazı boyutu */
+        color: #333; /* Koyu gri renk */
+        font-weight: bold; /* Kalın yazı */
+    }
+</style>
+
+    <!-- Introduction section -->
+  
+    <section class="py-4 text-center container">
+        <div class="row py-lg-3">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h4 class="custom-heading"> <i class="fa-solid fa-guitar fa-2x"></i> &nbsp; SolakGitar: Solaklar İçin... </h4>
+                <br>
+                <br>
+                {% if user.is_authenticated %}
+                <h3 style="font-weight: bold;">Hoş geldiniz, {{ user.username }}!</h3> <br>
+                <h4><strong>Bugün biraz müziğe doymaya ne dersiniz?</strong></h4>
+                {% else %}
+                <h4><strong>Halen Müziğin Doğasına Kapılmadınız mı?</strong></h4>
+                <a href="{% url 'register' %}" class="btn custom-button my-2"><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp; Bir Hesap Oluştur </a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+       <!-- tüm ürünler -->
+      
+        <div class="album py-3 bg-light">
+        
+            <div class="container">
+    
+                <div class="pb-3 h5"><i class="fa-solid fa-clipboard-list"></i>&nbsp; Tüm Ürünler </div>
+                
+
+                <hr>
+
+                <br>
+
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+    
+                    {% for product in my_products %}
+    
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <img class="img-fluid" alt="Responsive image" src="{{product.image.url}}">
+                                <div class="card-body">
+                                <p class="card-text">
+                                    <a class="text-primary text-decoration-none" href="{{product.get_absolute_url}}"> {{ product.brand | capfirst}}</a>
+                                    <br> 
+                                    <a class="text-info text-decoration-none" href="{{product.get_absolute_url}}"> {{ product.title | capfirst}}</a>
+                                </p>
+                                <hr>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5> ₺ {{ product.price }} </h5>
+                                </div>
+                                </div>
+                            </div>
+                    
+                        </div>
+                    {% endfor %}    
+            
+    
+                </div>
+            </div>
+        </div>
+
+
+{% endblock %}
+
+
+
+
+
+

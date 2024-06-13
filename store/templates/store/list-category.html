@@ -1,0 +1,125 @@
+{% extends "./base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+
+<style>
+  /* Albüm konteyneri */
+  .album {
+      background-color: #ffffff; /* Arka plan rengini beyaz yapar */
+      padding: 1rem 0; /* Üst ve alt boşluk */
+      border-radius: 10px; /* Köşeleri yuvarlatır */
+      box-shadow: 0 4px 8px rgb(21, 79, 136); /* Hafif gölge efekti */
+  }
+
+  /* Kategori başlığı */
+  .container .h5 {
+      padding-bottom: 0rem; /* Alt boşluk */
+      font-size: 1.5rem; /* Yazı boyutu */
+      font-weight: bolder; /* Yazı kalınlığı */
+      color: #333333; /* Yazı rengini koyu gri yapar */
+      text-align: center; /* Metni ortalar */
+  }
+
+  /* Yatay çizgi */
+  .container hr {
+      border: none; /* Kenarlığı kaldırır */
+      border-top: 2px solid #5854b5; /* Üst kenarlığı 2px kalınlıkta gri yapar */
+      margin: 1rem 1rem; /* Üst ve alt boşluk */
+  }
+
+  /* Genel konteyner */
+  .container {
+      max-width: 1200px; /* Maksimum genişlik */
+      margin: 0 auto; /* Ortalamak için otomatik kenar boşlukları */
+      padding: 1rem 2rem; /* Sağ ve sol boşluk */
+  }
+
+    /* Ürün kartları */
+  .card {
+    height: 100%; /* Kartların aynı boyutta olmasını sağlar */
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 10px solid #121015; /* Kalın mavi çerçeve */
+    border-style: inset double; /* Çift çizgili desenli çerçeve */
+    border-radius: 20px; /* Köşeleri yuvarlatır */
+    box-shadow: 2px 4px 8px rgb(25, 16, 125, 1); /* Hafif gölge efekti */
+  }
+
+  /* Kart gövdesi */
+  .card-body {
+    flex-grow: 1;
+    display: inline-block;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  /* Kart metni */
+  .card-text {
+    margin-bottom: 1rem; /* Metin altı boşluk */
+  }
+
+  /* Kart başlık */
+  .card-text a {
+    display: block;
+    color: #17a2b8; /* Bootstrap'in text-info rengini kullanır */
+    text-decoration: underline;
+  }
+
+  .card-text a:hover {
+    text-decoration: underline;
+  }
+
+  /* Fiyat kısmı */
+  .card-body .d-flex {
+    margin-top: auto;
+  }
+  </style>
+
+<main>
+  
+  <div class="album py-5 bg-white">
+    <div class="container">
+
+      <div class="pb-3 h5"> {{category.name | capfirst }} </div>
+
+
+      <hr>
+
+      <br>
+
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+        <!-- for product in products -->
+        {% for product in products %}
+        <div class="col">
+          <div class="card shadow-sm">
+          <img class="img-fluid" alt="Responsive image" src="{{product.image.url}}">
+
+            <div class="card-body">
+              <p class="card-text">
+                <a class="text-primary text-decoration-none" href="{{product.get_absolute_url}}"> {{product.brand}} </a>
+                <br>
+                <a class="text-info text-decoration-none" href="{{product.get_absolute_url}}"> {{product.title}} </a>
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <h5> ₺ {{product.price}} </h5>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <!-- end for -->
+
+      </div>
+    </div>
+  </div>
+
+
+</main>
+
+{% endblock %}
